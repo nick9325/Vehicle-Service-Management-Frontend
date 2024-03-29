@@ -25,15 +25,27 @@ const SignUp = () => {
             <Form>
               {/* Username */}
               <Form.Group className="mb-3" controlId="username">
-                <Form.Label>Username or email</Form.Label>
-                <Form.Control type="text" name="username" placeholder="User Name" required="" />
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="text" name="firstname" placeholder="First Name" required="" />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="username">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="text" name="lastname" placeholder="Last Name" required="" />
               </Form.Group>
 
               {/* Email */}
               <Form.Group className="mb-3" controlId="email">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" name="email" placeholder="Enter address here" required="" />
+                <Form.Control type="email" name="email" placeholder="Enter email here" required="" />
               </Form.Group>
+
+
+              <Form.Group className="mb-3" controlId="email">
+                <Form.Label>Address</Form.Label>
+                <Form.Control type="text" name="address" placeholder="Enter address here" required="" />
+              </Form.Group>
+
 
               {/* Password */}
               <Form.Group className="mb-3" controlId="password">
