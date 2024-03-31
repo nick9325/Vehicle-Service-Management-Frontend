@@ -1,18 +1,21 @@
+
+'use client'
+
 import { useState } from 'react';
 import { Card, Button, Badge } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
 
-const VehicleCard = () => {
+const VehicleCard = (props) => {
 
-    const serviceStatus = 'complete';
+
 
     const getStatusColor = () => {
-        switch (serviceStatus) {
+        switch (props.serviceStatus) {
             case 'pending':
                 return 'danger';
             case 'inProgress':
                 return 'warning';
-            case 'complete':
+            case 'completed':
                 return 'success';
             default:
                 return 'secondary';
@@ -29,7 +32,7 @@ const VehicleCard = () => {
                         <span className="fs-5">Vehicle Details</span>
                     </div>
 
-                    <Badge bg={getStatusColor()}>{serviceStatus}</Badge>
+                    <Badge bg={getStatusColor()}>{props.serviceStatus}</Badge>
                 </Card.Title>
                 <Card.Text className="mb-3">
                     <strong>Vehicle Number:</strong> MH 4404
@@ -46,22 +49,13 @@ const VehicleCard = () => {
                 <Card.Text className="pb-3 border-bottom">
                     <strong>Due Date:</strong> 05-03-2024
                 </Card.Text>
-                <Card.Text className="pb-3 border-bottom small d-flex justify-content-between">
-                    <div>
-                    <i className='fe fe-user'></i> John Doe
-                    </div>
-                    <div>
-                    <i className='fe fe-map-pin'></i> Pune, Maharashtra
-                    </div>
-            
+                <Card.Text className={`pb-3 ${props.serviceStatus!=='inProgress'?'border-bottom':''} small d-flex justify-content-between`}>
+                    <span><i className='fe fe-user'></i> John Doe</span>
+                    <span><i className='fe fe-map-pin'></i> Pune, Maharashtra</span>
                 </Card.Text>
-               
-                
 
 
-
-
-                <Button className='' variant="primary" size='sm'>Schedule</Button>
+                {props.serviceStatus!=='inProgress' && <Button className='' variant="primary" size='sm'>{props.buttonName}</Button>}
 
 
 

@@ -43,7 +43,6 @@ const AddCustomer = () => {
     return (
         <Container fluid className="p-6">
 
-        <PageHeading heading="Customer Registration"/>
 
         <div className="py-6">
             <Row>
@@ -54,7 +53,7 @@ const AddCustomer = () => {
                         <Col>
                             <Card>
                                 <Card.Header className="bg-primary text-white">
-                                    <Card.Title className="mb-0">Registering...</Card.Title>
+                                    <Card.Title className="mb-0">Customer Registration</Card.Title>
                                 </Card.Header>
                                 <Card.Body>
                                     <Form>

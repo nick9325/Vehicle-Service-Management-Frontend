@@ -46,7 +46,7 @@ const EditCustomer = () => {
     return (
         <Container fluid className="p-6">
 
-        
+            <PageHeading heading="Edit Customer" />
 
             <div className="py-6">
                 <Row>
@@ -57,7 +57,7 @@ const EditCustomer = () => {
                             <Col>
                                 <Card>
                                     <Card.Header className="bg-primary text-white">
-                                        <Card.Title className="mb-0">Edit Customer</Card.Title>
+                                        <Card.Title className="mb-0">Editing...</Card.Title>
                                     </Card.Header>
                                     <Card.Body>
                                         <Form>

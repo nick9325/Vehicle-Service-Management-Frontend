@@ -33,6 +33,7 @@ const ProfileHeader = () => {
             </div>
           </div>
           {/* nav */}
+          
           <ul className="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
             <li className="nav-item">
               <Link className="nav-link active" href="#">Overview</Link>
@@ -55,6 +56,7 @@ const ProfileHeader = () => {
               <Link className="nav-link" href="#">Activity</Link>
             </li>
           </ul>
+
         </div>
       </Col>
     </Row>
