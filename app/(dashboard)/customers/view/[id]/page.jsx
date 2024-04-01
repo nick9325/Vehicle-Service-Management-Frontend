@@ -14,39 +14,23 @@ const EditCustomer = () => {
 
     const router = useRouter();
 
-    const [formData, setFormData] = useState({
-        fullName: 'nikhil',
-        email: 'nikhil@gmail.com',
-        contact: '9325849098',
-        address: 'Shivajinagar, Gaothan, Pune',
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-
-    const handleCancel = () => {
-
-        router.push('/customers')
-
-        setFormData({
-            fullName: '',
-            email: '',
-            contact: '',
-            address: '',
-        });
-    };
 
 
 
     return (
         <Container fluid className="p-6">
 
-            <PageHeading heading="Edit Customer" />
+            <Row>
+                <Col lg={12} md={12} xs={12}>
+
+                    <div className="border-bottom pb-4 mb-4 d-flex justify-content-between">
+                        <h3 className="mb-0 fw-bold">Customer Details</h3>
+                        <Button onClick={() => router.push('/customers')} variant="primary" className="me-1">Back</Button>
+                    </div>
+
+
+                </Col>
+            </Row>
 
             <div className="py-6">
                 <Row>
@@ -56,40 +40,32 @@ const EditCustomer = () => {
                         <Row className="justify-content-center">
                             <Col>
                                 <Card>
-                                    <Card.Header className="bg-primary text-white">
-                                        <Card.Title className="mb-0">Editing...</Card.Title>
-                                    </Card.Header>
                                     <Card.Body>
-                                        <Form>
-                                            <Row className="mb-3">
-                                                <Col md={6}>
-                                                    <Form.Label htmlFor="fullName">Full Name</Form.Label>
-                                                    <Form.Control type="text" id="fullName" name="fullName" placeholder="Enter your full name" value={formData.fullName} onChange={handleChange} />
-                                                </Col>
-                                                <Col md={6}>
-                                                    <Form.Label htmlFor="email">Email address</Form.Label>
-                                                    <Form.Control type="email" id="email" name="email" placeholder="name@example.com" value={formData.email} onChange={handleChange} />
-                                                </Col>
-                                            </Row>
-                                            <Row className="mb-3">
-                                            <Col md={6}>
-                                                <Form.Label htmlFor="contact">Contact Number</Form.Label>
-                                                <Form.Control type="text" id="contact" name="contact" placeholder="Enter your contact number" value={formData.contact} onChange={handleChange} />
+
+
+                                        <Row>
+
+                                            <Col xs={12} sm={6} className="mb-5">
+                                                <h6 className="text-uppercase fs-5 ls-2">Name </h6>
+                                                <p className="mb-0">Nikhil Magar</p>
                                             </Col>
-                                            <Col md={6}>
-                                                <Form.Label htmlFor="address">Address</Form.Label>
-                                                <Form.Control type="text" id="address" name="address" placeholder="Enter your address" value={formData.address} onChange={handleChange} />
+                                            <Col xs={12} sm={6} className="mb-5">
+                                                <h6 className="text-uppercase fs-5 ls-2">Email </h6>
+                                                <p className="mb-0">nikhil@gmail.com</p>
+                                            </Col>
+                                            <Col xs={12} sm={6} className="mb-5 mb-sm-0">
+                                                <h6 className="text-uppercase fs-5 ls-2">Contact Number </h6>
+                                                <p className="mb-0">+91 9325849098</p>
+                                            </Col>
+                                            <Col xs={12} sm={6} className="">
+                                                <h6 className="text-uppercase fs-5 ls-2">Address</h6>
+                                                <p className="mb-0">Gaothan, Shivajinagar, Pune</p>
                                             </Col>
                                         </Row>
-                                            <Button variant="primary" type="submit">Save Changes</Button>
-                                            <Button variant="secondary" className="ms-2" onClick={handleCancel}>Cancel</Button>
-                                        </Form>
                                     </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
-
-
 
                     </div>
 

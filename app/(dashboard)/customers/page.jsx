@@ -24,9 +24,6 @@ const Customers = () => {
     return (
         <Container fluid className="p-6">
 
-
-
-
             <Row>
                 <Col lg={12} md={12} xs={12}>
 
@@ -43,8 +40,6 @@ const Customers = () => {
                 <Row>
 
                     <div className='container'>
-
-
 
 
                         <Modal show={show} onHide={handleClose}>
@@ -77,7 +72,7 @@ const Customers = () => {
                                     <td>Prasad Hiwarkar</td>
                                     <td>prasad@gmail.com</td>
                                     <td>
-                                        <Button variant="secondary" size='sm' className="me-2"><i className="fe fe-eye"></i></Button>
+                                        <Button onClick={()=> router.push('/customers/view/'+ customerId)} variant="secondary" size='sm' className="me-2"><i className="fe fe-eye"></i></Button>
 
                                         <Button onClick={() => router.push('/customers/edit/' + customerId)} variant="success" size='sm' className="me-2"><i className="fe fe-edit"></i></Button>
 
@@ -90,7 +85,7 @@ const Customers = () => {
                                     <td>Vaibhavi Hule</td>
                                     <td>vaibhavi@gmail.com</td>
                                     <td>
-                                        <Button variant="secondary" size='sm' className="me-2"><i className="fe fe-eye"></i></Button>
+                                        <Button onClick={()=> router.push('/customers/view/'+ customerId)} variant="secondary" size='sm' className="me-2"><i className="fe fe-eye"></i></Button>
 
                                         <Button variant="success" size='sm' className="me-2"><i className="fe fe-edit"></i></Button>
 
@@ -102,7 +97,7 @@ const Customers = () => {
                                     <td>Nikhil Magar</td>
                                     <td>nikhil@gmail.com</td>
                                     <td>
-                                        <Button variant="secondary" size='sm' className="me-2"><i className="fe fe-eye"></i></Button>
+                                        <Button onClick={()=> router.push('/customers/view/'+ customerId)} variant="secondary" size='sm' className="me-2"><i className="fe fe-eye"></i></Button>
                                         <Button variant="success" size='sm' className="me-2"><i className="fe fe-edit"></i></Button>
 
                                         <Button onClick={handleShow} variant="danger" size='sm' className=""><i className="fe fe-trash-2"></i></Button>

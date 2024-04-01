@@ -57,22 +57,22 @@ const AddCustomer = () => {
                                 </Card.Header>
                                 <Card.Body>
                                     <Form>
-                                        <Row className="mb-3">
-                                            <Col md={6}>
+                                        <Row >
+                                            <Col md={6} className="mb-3">
                                                 <Form.Label htmlFor="fullName">Full Name</Form.Label>
                                                 <Form.Control type="text" id="fullName" name="fullName" placeholder="Enter your full name" value={formData.fullName} onChange={handleChange} />
                                             </Col>
-                                            <Col md={6}>
+                                            <Col md={6} className="mb-3">
                                                 <Form.Label htmlFor="email">Email address</Form.Label>
                                                 <Form.Control type="email" id="email" name="email" placeholder="name@example.com" value={formData.email} onChange={handleChange} />
                                             </Col>
                                         </Row>
-                                        <Row className="mb-3">
-                                            <Col md={6}>
+                                        <Row >
+                                            <Col md={6} className="mb-3">
                                                 <Form.Label htmlFor="contact">Contact Number</Form.Label>
                                                 <Form.Control type="text" id="contact" name="contact" placeholder="Enter your contact number" value={formData.contact} onChange={handleChange} />
                                             </Col>
-                                            <Col md={6}>
+                                            <Col md={6} className="mb-3">
                                                 <Form.Label htmlFor="address">Address</Form.Label>
                                                 <Form.Control type="text" id="address" name="address" placeholder="Enter your address" value={formData.address} onChange={handleChange} />
                                             </Col>

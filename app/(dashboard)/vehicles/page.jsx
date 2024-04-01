@@ -17,8 +17,9 @@ const Vehicles = () => {
     <Container fluid className="p-6">
 
       <VehiclesNav />
+      
 
-      <div className="py-3 d-flex gap-3 flex-wrap">
+      <div className="py-3 d-flex gap-3 flex-wrap ">
 
 
         <VehicleCard serviceStatus={'pending'} buttonName={'Schedule'}/>
