@@ -1,13 +1,10 @@
 
 'use client'
 
-import { useState } from 'react';
 import { Card, Button, Badge } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
 
 const VehicleCard = (props) => {
-
-
 
     const getStatusColor = () => {
         switch (props.serviceStatus) {
@@ -42,7 +39,6 @@ const VehicleCard = (props) => {
                 </Card.Text>
 
 
-
                 <Card.Text className="mb-3">
                     <strong>Description:</strong> Change oil as well as Fuel filter. Make proper Wheel alignment of all Vehicles.
                 </Card.Text>
@@ -56,9 +52,6 @@ const VehicleCard = (props) => {
 
 
                 {props.serviceStatus!=='inProgress' && <Button className='' variant="primary" size='sm'>{props.buttonName}</Button>}
-
-
-
 
             </Card.Body>
         </Card>

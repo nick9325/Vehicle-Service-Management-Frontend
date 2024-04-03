@@ -6,9 +6,6 @@ import VehicleCard from '../../../../components/VehicleCard'
 import VehiclesNav from '../../../../components/VehiclesNav'
 
 
-
-
-
 const ServiceCompleted = () => {
 
 
