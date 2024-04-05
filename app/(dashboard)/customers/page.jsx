@@ -29,7 +29,7 @@ const Customers = () => {
 
                     <div className="border-bottom pb-4 mb-4 d-flex justify-content-between">
                         <h3 className="mb-0 fw-bold">Customers</h3>
-                        <Button onClick={() => router.push('/customers/add')} variant="primary" className="me-1">Add New Customer</Button>
+                        <Button onClick={() => router.push('/customers/add')} variant="primary" className="">Add New Customer</Button>
                     </div>
 
                 </Col>
