@@ -6,4 +6,4 @@ import { BaseUrl } from "./BaseUrl";
 export const SignUpAdvisor = `${BaseUrl}/auth/signup`;
 
 
-export const SignInAdvisor = `${BaseUrl}//auth/login`;
+export const SignInAdvisor = `${BaseUrl}/auth/login`;
