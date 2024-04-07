@@ -8,12 +8,16 @@ import Link from 'next/link';
 import useMounted from 'hooks/useMounted';
 import { useEffect, useState } from 'react';
 import { SignInAdvisor } from '../../../../constants/AuthConstants';
+import { useRouter } from 'next/navigation';
 
 const SignIn = () => {
 
 
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
 
   const hasMounted = useMounted();
 
@@ -22,12 +26,7 @@ const SignIn = () => {
 
 
 
-  const GetToken=()=>{
 
-
-    
-
-  }
 
 
 
@@ -40,8 +39,6 @@ const SignIn = () => {
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
-
 
     var raw = JSON.stringify({
       "email": email,
@@ -58,10 +55,14 @@ const SignIn = () => {
 
     let response = await fetch(`${SignInAdvisor}`, requestOptions)
     console.log(response)
-    if (response.ok) {
+    let res = await response.json();
 
+    console.log("this is res:",res.token);
+
+    if (response.ok) {
+      localStorage.setItem('token', res.token);
+      router.push('/');
       alert("login successful")
-      
     }
     else {
       alert("failed to register advisor");
