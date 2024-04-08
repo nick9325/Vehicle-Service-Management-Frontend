@@ -1,5 +1,6 @@
 // import theme style scss file
 import 'styles/theme.scss';
+import {ToastConfig} from './toast-config'
 
 export const metadata = {
     title: 'Dash UI - Next.Js Admin Dashboard Template',
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className='bg-light'>
                 {children}
+                <ToastConfig />
             </body>
         </html>
     )

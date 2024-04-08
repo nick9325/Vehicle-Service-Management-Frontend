@@ -6,9 +6,10 @@ import Link from 'next/link';
 
 
 import useMounted from 'hooks/useMounted';
-import { useEffect, useState } from 'react';
-import { SignInAdvisor } from '../../../../constants/AuthConstants';
+import { useState } from 'react';
+import { SignInAdmin } from '../../../../constants/AuthConstants';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const SignIn = () => {
 
@@ -17,32 +18,23 @@ const SignIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const type = "admin";
   
-
   const hasMounted = useMounted();
 
 
-
-
-
-
-
-
-
-
-  // useEffect(()=>{
-    
-  // },[])
-
-
   const signIn=async()=>{
+
+    toast.dismiss()
+    toast.loading('Signing In..')
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
       "email": email,
-      "password": password
+      "password": password,
+      "type": type
     });
 
     console.log(raw);
@@ -53,37 +45,44 @@ const SignIn = () => {
       body: raw,
     };
 
-    let response = await fetch(`${SignInAdvisor}`, requestOptions)
+    let response = await fetch(`${SignInAdmin}`, requestOptions)
     console.log(response)
-    let res = await response.json();
-
-    console.log("this is res:",res.token);
 
     if (response.ok) {
+      let res = await response.json();
+      console.log("this is res:",res.token);
       localStorage.setItem('token', res.token);
       router.push('/');
-      alert("login successful")
+      toast.dismiss()
+      toast.success('Signed In successfully!')
+      
     }
     else {
-      alert("failed to register advisor");
+      toast.dismiss()
+      toast.error('Failed to Sign In')
     }
-
-
 
   }
 
-
-
-
-
   const handleSignInClick=(e)=>{
-
     e.preventDefault();
 
-    signIn()
-
-
-
+    if(email === "" && password === ""){
+      toast.dismiss()
+      toast.error("Email and Password required!")
+    }
+    else if(email===""){
+      toast.dismiss()
+      toast.error("Email requied!")
+    }
+    else if(password===""){
+      toast.dismiss()
+      toast.error("Password required!")
+    }
+    else{
+      signIn();
+    }
+   
   }
 
   return (

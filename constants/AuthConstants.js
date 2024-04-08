@@ -3,7 +3,7 @@ import { BaseUrl } from "./BaseUrl";
 
 //Post
 
-export const SignUpAdvisor = `${BaseUrl}/auth/signup`;
+export const SignUpAdmin = `${BaseUrl}/auth/signup`;
 
 
-export const SignInAdvisor = `${BaseUrl}/auth/login`;
+export const SignInAdmin = `${BaseUrl}/auth/login`;

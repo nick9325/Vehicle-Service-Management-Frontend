@@ -1,7 +1,6 @@
 'use client'
 // import node module libraries
 import { useState } from 'react';
-import {ToastConfig} from '../toast-config';
 
 // import theme style scss file
 import 'styles/theme.scss';
@@ -34,7 +33,7 @@ export default function DashboardLayout({ children }) {
 					/>
 				</div>
 				{children}
-				<ToastConfig />
+				
 			</div>
 		</div>
 	)
