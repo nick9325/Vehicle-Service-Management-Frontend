@@ -17,7 +17,6 @@ const AddVehicle = () => {
     const [vehicleNumber, setVehicleNumber] = useState('');
     const [modalNumber, setModalNumber] = useState('');
     const [vehicleDescription, setVehicleDescription] = useState('');
-    const [duedate, setDuedate] = useState(new Date());
     const [selectedOwner, setSelectedOwner] = useState(null);
 
 
@@ -83,6 +82,10 @@ const AddVehicle = () => {
         if (response.ok) {
             let res = await response.json();
             console.log(res);
+            setVehicleNumber('');
+            setModalNumber('');
+            setVehicleDescription('');
+            setSelectedOwner(null);
             toast.dismiss();
             toast.success('Vehicle added successfully!');
         } else if (response.status === 403) {
@@ -97,7 +100,32 @@ const AddVehicle = () => {
 
     const SaveVehicle = (e) => {
         e.preventDefault();
-        registerNewVehicle();
+
+        if(vehicleNumber===""){
+            toast.dismiss();
+            toast.error("Vehicle number required!")
+        }
+        else if(modalNumber===""){
+            toast.dismiss();
+            toast.error("Vehicle model required!")
+        }
+        else if(vehicleDescription===""){
+            toast.dismiss();
+            toast.error("Vehicle service description required!")
+        }
+        else if(vehicleDescription.length<30){
+            toast.dismiss();
+            toast.error("Vehicle service description must be greater than 30 words");
+        }
+        else if(selectedOwner===null){
+            toast.dismiss();
+            toast.error("Please select vehicle owner")
+        }
+        else{
+            registerNewVehicle();
+        }
+
+
     };
 
     useEffect(() => {
@@ -146,7 +174,7 @@ const AddVehicle = () => {
                                             </Row>
                                             <Row>
                                                 <Col md={6} className="mb-3">
-                                                    <Form.Label htmlFor="description">Description</Form.Label>
+                                                    <Form.Label htmlFor="description">Service Description</Form.Label>
                                                     <Form.Control
                                                         type="text"
                                                         id="description"

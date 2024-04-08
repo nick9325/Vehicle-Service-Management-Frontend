@@ -40,12 +40,12 @@ const VehicleCard = (props) => {
                     <strong>Model Number:</strong> {props.vehicleModel}
                 </Card.Text>
                 <Card.Text className="mb-3">
-                    <strong>Description:</strong> {descriptionExpanded ? props.vehicleDescription : `${props.vehicleDescription?.slice(0, 20)}...`}
-                    {!descriptionExpanded && props.vehicleDescription.length > 20 && <Button variant="link" size="sm" onClick={toggleDescription}>Read More</Button>}
+                    <strong>Description:</strong> {descriptionExpanded ? props.vehicleDescription : `${props.vehicleDescription?.slice(0, 30)}...`}
+                    {!descriptionExpanded && props.vehicleDescription.length > 30 && <Button variant="link" size="sm" onClick={toggleDescription}>Read More</Button>}
                 </Card.Text>
                 <Card.Text className={`pb-3 ${props.serviceStatus !== 'scheduled' ? 'border-bottom' : ''} small d-flex justify-content-between`}>
-                    <span><i className='fe fe-user'></i> John Doe</span>
-                    <span><i className='fe fe-map-pin'></i> Pune, Maharashtra</span>
+                    <span><i className='fe fe-user'></i> {props.ownerFirstname} {props.ownerLastname}</span>
+                    <span><i className='fe fe-map-pin'></i>{props.ownerAddress}</span>
                 </Card.Text>
                 {props.serviceStatus !== 'scheduled' && <Button className='' variant="primary" size='sm'>{props.buttonName}</Button>}
             </Card.Body>
