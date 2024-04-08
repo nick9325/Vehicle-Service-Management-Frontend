@@ -1,16 +1,19 @@
-
-'use client'
-
+import { useState } from 'react';
 import { Card, Button, Badge } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
 
 const VehicleCard = (props) => {
+    const [descriptionExpanded, setDescriptionExpanded] = useState(false);
+
+    const toggleDescription = () => {
+        setDescriptionExpanded(!descriptionExpanded);
+    };
 
     const getStatusColor = () => {
         switch (props.serviceStatus) {
             case 'pending':
                 return 'danger';
-            case 'inProgress':
+            case 'scheduled':
                 return 'warning';
             case 'completed':
                 return 'success';
@@ -19,8 +22,8 @@ const VehicleCard = (props) => {
         }
     };
 
-
     return (
+
         <Card className="border-primary" style={{ maxWidth: '18rem' }}>
             <Card.Body className="text-dark">
                 <Card.Title className="text-primary mb-4 d-flex align-items-center justify-content-between border-bottom pb-3">
@@ -28,33 +31,26 @@ const VehicleCard = (props) => {
                         <FaCar size={24} />
                         <span className="fs-5">Vehicle Details</span>
                     </div>
-
                     <Badge bg={getStatusColor()}>{props.serviceStatus}</Badge>
                 </Card.Title>
                 <Card.Text className="mb-3">
-                    <strong>Vehicle Number:</strong> MH 4404
+                    <strong>Vehicle Number:</strong> {props.vehicleNumber}
                 </Card.Text>
                 <Card.Text className="mb-3">
-                    <strong>Model Number:</strong> ABC123
+                    <strong>Model Number:</strong> {props.vehicleModel}
                 </Card.Text>
-
-
                 <Card.Text className="mb-3">
-                    <strong>Description:</strong> Change oil as well as Fuel filter. Make proper Wheel alignment of all Vehicles.
+                    <strong>Description:</strong> {descriptionExpanded ? props.vehicleDescription : `${props.vehicleDescription?.slice(0, 20)}...`}
+                    {!descriptionExpanded && props.vehicleDescription.length > 20 && <Button variant="link" size="sm" onClick={toggleDescription}>Read More</Button>}
                 </Card.Text>
-                <Card.Text className="pb-3 border-bottom">
-                    <strong>Due Date:</strong> 05-03-2024
-                </Card.Text>
-                <Card.Text className={`pb-3 ${props.serviceStatus!=='inProgress'?'border-bottom':''} small d-flex justify-content-between`}>
+                <Card.Text className={`pb-3 ${props.serviceStatus !== 'scheduled' ? 'border-bottom' : ''} small d-flex justify-content-between`}>
                     <span><i className='fe fe-user'></i> John Doe</span>
                     <span><i className='fe fe-map-pin'></i> Pune, Maharashtra</span>
                 </Card.Text>
-
-
-                {props.serviceStatus!=='inProgress' && <Button className='' variant="primary" size='sm'>{props.buttonName}</Button>}
-
+                {props.serviceStatus !== 'scheduled' && <Button className='' variant="primary" size='sm'>{props.buttonName}</Button>}
             </Card.Body>
         </Card>
+
     );
 };
 

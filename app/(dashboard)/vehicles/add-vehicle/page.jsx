@@ -1,46 +1,117 @@
-'use client'
-
+'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Select from 'react-select'; // Import react-select
 
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-
-import { PageHeading, PageHeadingWithButton } from 'widgets'
 import VehiclesNav from '../../../../components/VehiclesNav';
 
-const AddVehicle = () => {
+import toast from 'react-hot-toast';
+import { RegisterVehicle } from '../../../../constants/VehicleEndpoints';
+import { GetAllOwners } from '../../../../constants/OwnerEndpoints';
 
+const AddVehicle = () => {
     const router = useRouter();
 
-    const [formData, setFormData] = useState({
-        vehicleNumber: '',
-        modalNumber: '',
-        desctiption: '',
-        dueDate: '',
-    });
+    const [vehicleNumber, setVehicleNumber] = useState('');
+    const [modalNumber, setModalNumber] = useState('');
+    const [vehicleDescription, setVehicleDescription] = useState('');
+    const [duedate, setDuedate] = useState(new Date());
+    const [selectedOwner, setSelectedOwner] = useState(null);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+
+    const [ownersData, setOwnersData] = useState([]);
+
+    const getAllOwners = async () => {
+        toast.dismiss();
+        toast.loading('Fetching owners..');
+
+        const token = localStorage.getItem('token');
+
+        var myHeaders = new Headers();
+        myHeaders.append('Authorization', `Bearer ${token}`);
+
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+
+        let response = await fetch(`${GetAllOwners}`, requestOptions);
+
+        if (response.ok) {
+            let res = await response.json();
+            setOwnersData(res);
+            toast.dismiss();
+            toast.success('Owners fetched successfully!');
+        } else if (response.status === 403) {
+            toast.dismiss();
+            toast.error('Please log in to continue');
+            router.push('/authentication/sign-in');
+        } else {
+            toast.dismiss();
+            toast.error('Failed to fetch owners');
+        }
     };
 
+    const registerNewVehicle = async () => {
+        toast.dismiss();
+        toast.loading('Adding vehicle..');
 
+        const token = localStorage.getItem('token');
 
+        var myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Authorization', `Bearer ${token}`);
+
+        var raw = JSON.stringify({
+            ownerId: selectedOwner.value,
+            vehicleNumber: vehicleNumber,
+            vehicleModel: modalNumber,
+            vehicleDescription: vehicleDescription,
+            serviceStatus: 'DUE',
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+
+        let response = await fetch(`${RegisterVehicle}`, requestOptions);
+
+        if (response.ok) {
+            let res = await response.json();
+            console.log(res);
+            toast.dismiss();
+            toast.success('Vehicle added successfully!');
+        } else if (response.status === 403) {
+            toast.dismiss();
+            router.push('/authentication/sign-in');
+            toast.error('Please log in to continue');
+        } else {
+            toast.dismiss();
+            toast.error('Failed to add vehicle');
+        }
+    };
+
+    const SaveVehicle = (e) => {
+        e.preventDefault();
+        registerNewVehicle();
+    };
+
+    useEffect(() => {
+        getAllOwners();
+    }, []);
 
     return (
         <Container fluid className="p-6">
-
             <VehiclesNav />
-
             <div className="py-3">
+
+           
                 <Row>
-
-                    <div className='container'>
-
+                    <div className="container">
                         <Row className="justify-content-center">
                             <Col>
                                 <Card>
@@ -49,57 +120,70 @@ const AddVehicle = () => {
                                     </Card.Header>
                                     <Card.Body>
                                         <Form>
-                                            <Row className="mb-3">
-                                                <Col md={6}>
+                                            <Row>
+                                                <Col md={6} className="mb-3">
                                                     <Form.Label htmlFor="vehicleNumber">Vehicle Number</Form.Label>
-                                                    <Form.Control type="text" id="vehicleNumber" name="vehicleNumber" placeholder="Enter vehicle number" value={formData.vehicleNumber} onChange={handleChange} />
+                                                    <Form.Control
+                                                        type="text"
+                                                        id="vehicleNumber"
+                                                        name="vehicleNumber"
+                                                        placeholder="Enter vehicle number"
+                                                        value={vehicleNumber}
+                                                        onChange={(e) => setVehicleNumber(e.target.value)}
+                                                    />
                                                 </Col>
-                                                <Col md={6}>
+                                                <Col md={6} className="mb-3">
                                                     <Form.Label htmlFor="modelNumber">Model Number</Form.Label>
-                                                    <Form.Control type="text" id="modelNumber" name="modelNumber" placeholder="Enter model number" value={formData.modalNumber} onChange={handleChange} />
+                                                    <Form.Control
+                                                        type="text"
+                                                        id="modelNumber"
+                                                        name="modelNumber"
+                                                        placeholder="Enter model number"
+                                                        value={modalNumber}
+                                                        onChange={(e) => setModalNumber(e.target.value)}
+                                                    />
                                                 </Col>
                                             </Row>
-                                            <Row className="mb-3">
-                                                <Col md={6}>
+                                            <Row>
+                                                <Col md={6} className="mb-3">
                                                     <Form.Label htmlFor="description">Description</Form.Label>
-                                                    <Form.Control type="text" id="description" name="description" placeholder="Enter description" value={formData.desctiption} onChange={handleChange} />
+                                                    <Form.Control
+                                                        type="text"
+                                                        id="description"
+                                                        name="description"
+                                                        placeholder="Enter description"
+                                                        value={vehicleDescription}
+                                                        onChange={(e) => setVehicleDescription(e.target.value)}
+                                                    />
                                                 </Col>
-                                                <Col md={6}>
-                                                    <Form.Label htmlFor="dueDate">Due Date</Form.Label>
-                                                    <Form.Control type="date" id="dueDate" name="dueDate" placeholder="Enter due date" value={formData.dueDate} onChange={handleChange} />
+
+                                                <Col md={6} className="mb-3">
+                                                    <Form.Label htmlFor="owner">Select Owner</Form.Label>
+                                                    <Select
+                                                        id="owner"
+                                                        name="owner"
+                                                        value={selectedOwner}
+                                                        onChange={(selectedOption) => setSelectedOwner(selectedOption)}
+                                                        options={ownersData.map((owner) => ({
+                                                            value: owner.id,
+                                                            label: owner.email,
+                                                        }))}
+                                                    />
                                                 </Col>
                                             </Row>
-                                            <Row className="mb-4">
-                                                <Col md={6}>
-                                                    <Form.Label htmlFor="category">Select Owner</Form.Label>
-                                                    <Form.Select id="customer" name="customer" value={formData.category} onChange={handleChange}>
-                                                        <option value="">Select owner of vehicle</option>
-                                                        <option value="option1">Option 1</option>
-                                                        <option value="option2">Option 2</option>
-                                                        <option value="option3">Option 3</option>
-                                                        {/* Add more options as needed */}
-                                                    </Form.Select>
-                                                </Col>
-                                            </Row>
-
-                                            <Button variant="primary" type="submit">Add Vehicle</Button>
-
+                                            <Button variant="primary" type="submit" onClick={SaveVehicle}>
+                                                Add Vehicle
+                                            </Button>
                                         </Form>
                                     </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
-
-
-
                     </div>
-
                 </Row>
-
             </div>
-
         </Container>
-    )
-}
+    );
+};
 
 export default AddVehicle;
