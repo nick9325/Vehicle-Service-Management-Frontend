@@ -80,9 +80,6 @@ const UnderService = () => {
     };
 
 
-
-
-
     let response = await fetch(`${GetScheduleVehicles}`, requestOptions);
 
 

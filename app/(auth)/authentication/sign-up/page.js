@@ -1,13 +1,11 @@
 'use client'
 
-// import node module libraries
 import { Row, Col, Card, Form, Button, Image } from 'react-bootstrap';
 import Link from 'next/link';
 
-// import hooks
 import useMounted from 'hooks/useMounted';
 import { useState } from 'react';
-import { SignUpAdvisor } from '../../../../constants/AuthConstants';
+import { SignUpAdmin } from '../../../../constants/AuthConstants';
 
 const SignUp = () => {
 
@@ -48,7 +46,7 @@ const SignUp = () => {
       body: raw,
     };
 
-    let response = await fetch(`${SignUpAdvisor}`, requestOptions)
+    let response = await fetch(`${SignUpAdmin}`, requestOptions)
     console.log(response)
     if (response.ok) {
 

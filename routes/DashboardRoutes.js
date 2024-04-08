@@ -38,9 +38,9 @@ export const DashboardMenu = [
 	},
 	{
 		id: uuid(),
-		title: 'Customers',
+		title: 'Owners',
 		icon: 'users',
-		link: '/customers'
+		link: '/owners'
 	},
 	{
 		id: uuid(),
