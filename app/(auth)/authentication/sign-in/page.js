@@ -15,10 +15,9 @@ const SignIn = () => {
 
 
   const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const type = "admin";
+  const type = "ADMIN";
   
   const hasMounted = useMounted();
 

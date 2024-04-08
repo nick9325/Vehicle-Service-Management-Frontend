@@ -1,20 +1,14 @@
 'use client'
 
-import { Col, Row, Card, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 
-import VehicleCard from '../../../../components/VehicleCard'
+import ServicedVehicleCard from '../../../../components/ServicedVehicleCard'
 import VehiclesNav from '../../../../components/VehiclesNav'
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
 import toast from 'react-hot-toast';
 import { GetCompletedVehicles } from '../../../../constants/VehicleEndpoints';
-
-
-
-
-
 
 
 
@@ -24,46 +18,7 @@ const UnderService = () => {
 
   const router = useRouter();
   const [vehicleData, setVehicleData] = useState();
-  const [ownerData, setOwnerData] = useState();
 
-  // const fetchOwner = async (ownerId) => {
-
-  //   toast.dismiss();
-  //   toast.loading("Fetching owner..");
-
-  //   const token = localStorage.getItem('token');
-  //   console.log(token)
-  //   var myHeaders = new Headers();
-  //   myHeaders.append("Authorization", `Bearer ${token}`);
-
-  //   const requestOptions = {
-  //     method: "GET",
-  //     headers: myHeaders,
-  //   };
-
-
-  //   let response = await fetch(`${GetOwnerById}${ownerId}`, requestOptions);
-
-
-  //   if (response.ok) {
-  //     let res = await response.json();
-  //     setOwnerData(res);
-
-  //     console.log(ownerData);
-  //     toast.dismiss();
-  //     toast.success('Owner fetched successfully!');
-
-  //   } else if (response.status === 403) {
-  //     toast.dismiss();
-  //     toast.error('Please log in to continue');
-  //     router.push('/authentication/sign-in');
-  //     alert('token expired!');
-  //   } else {
-  //     toast.dismiss();
-  //     toast.error('Failed to fetch owner');
-  //   }
-
-  // }
 
   const fetchVehicles = async () => {
 
@@ -91,8 +46,8 @@ const UnderService = () => {
       let res = await response.json();
       setVehicleData(res);
       console.log(vehicleData);
-  
-   
+
+
       toast.dismiss();
       toast.success('Vehicles fetched successfully!');
 
@@ -120,14 +75,17 @@ const UnderService = () => {
 
       <VehiclesNav />
 
-      <div className="py-3 d-flex gap-3 flex-wrap">
-        {vehicleData  &&  vehicleData.map((vehicle) => (
-          <div key={vehicle.id}>
-            
-            <VehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'pending'} buttonName={''} />
+      <div className="py-3">
+        <div className="row">
+          {vehicleData && vehicleData.map((vehicle) => (
+            <div className="col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
 
-          </div>
-        ))}
+              <ServicedVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Complete'} buttonName={''} />
+
+            </div>
+          ))}
+        </div>
+
       </div>
 
 
