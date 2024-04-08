@@ -6,7 +6,12 @@ import { Col, Row, Card, Container, ListGroup, ListGroupItem } from 'react-boots
 import VehicleCard from '../../../components/VehicleCard'
 import VehiclesNav from '../../../components/VehiclesNav'
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { GetDueVehicles } from '../../../constants/VehicleEndpoints';
+
+
+import toast from 'react-hot-toast';
+import { GetOwnerById } from '../../../constants/OwnerEndpoints';
 
 
 
@@ -18,40 +23,94 @@ const Vehicles = () => {
 
 
   const router = useRouter();
+  const [vehicleData, setVehicleData] = useState();
+  const [ownerData, setOwnerData] = useState();
+
+  // const fetchOwner = async (ownerId) => {
+
+  //   toast.dismiss();
+  //   toast.loading("Fetching owner..");
+
+  //   const token = localStorage.getItem('token');
+  //   console.log(token)
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("Authorization", `Bearer ${token}`);
+
+  //   const requestOptions = {
+  //     method: "GET",
+  //     headers: myHeaders,
+  //   };
+
+
+  //   let response = await fetch(`${GetOwnerById}${ownerId}`, requestOptions);
+
+
+  //   if (response.ok) {
+  //     let res = await response.json();
+  //     setOwnerData(res);
+
+  //     console.log(ownerData);
+  //     toast.dismiss();
+  //     toast.success('Owner fetched successfully!');
+
+  //   } else if (response.status === 403) {
+  //     toast.dismiss();
+  //     toast.error('Please log in to continue');
+  //     router.push('/authentication/sign-in');
+  //     alert('token expired!');
+  //   } else {
+  //     toast.dismiss();
+  //     toast.error('Failed to fetch owner');
+  //   }
+
+  // }
 
   const fetchDueVehicles = async () => {
+
+    toast.dismiss();
+    toast.loading("Fetching vehicles..");
+
     const token = localStorage.getItem('token');
+    console.log(token)
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
+
     const requestOptions = {
       method: "GET",
       headers: myHeaders,
     };
 
-    try {
-      let response = await fetch("https://vehicle-service-management.onrender.com/vehicle/get/all/due", requestOptions);
+
+
+
+
+    let response = await fetch(`${GetDueVehicles}`, requestOptions);
+
+
+    if (response.ok) {
       let res = await response.json();
+      setVehicleData(res);
+      console.log(vehicleData);
+  
+   
+      toast.dismiss();
+      toast.success('Vehicles fetched successfully!');
 
-      console.log(res);
-
-      if (response.ok) {
-        alert("fetched!");
-      } else if (response.status === 403) {
-        router.push('/authentication/sign-in');
-        alert('token expired!');
-      } else {
-        alert("failed to fetch vehicles");
-      }
-    } catch (error) {
-      console.error("Error fetching due vehicles:", error);
-      alert("An error occurred while fetching due vehicles");
+    } else if (response.status === 403) {
+      toast.dismiss();
+      toast.error('Please log in to continue');
+      router.push('/authentication/sign-in');
+      alert('token expired!');
+    } else {
+      toast.dismiss();
+      toast.error('Failed to fetch vehicles');
     }
-  };
+
+  }
 
 
   useEffect(() => {
     fetchDueVehicles();
-
   }, []);
 
 
@@ -61,15 +120,17 @@ const Vehicles = () => {
 
       <VehiclesNav />
 
+      <div className="py-3 d-flex gap-3 flex-wrap">
+        {vehicleData  &&  vehicleData.map((vehicle) => (
+          <div key={vehicle.id}>
+            
+            <VehicleCard vehicleModal={vehicle.vehicleModal} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'pending'} buttonName={'Schedule'} />
 
-      <div className="py-3 d-flex gap-3 flex-wrap ">
-
-
-        <VehicleCard serviceStatus={'pending'} buttonName={'Schedule'} />
-
-
-
+          </div>
+        ))}
       </div>
+
+
 
     </Container>
   )
