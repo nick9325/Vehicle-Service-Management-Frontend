@@ -98,7 +98,7 @@ const AddOwner = () => {
             toast.dismiss();
             toast.error('Failed to add owner');
         }
-    }
+    } 
 
     const handleAddOwner = (e) => {
         e.preventDefault();

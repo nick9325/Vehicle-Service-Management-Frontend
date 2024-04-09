@@ -16,6 +16,7 @@ const EditOwner = () => {
 
 
     const [formData, setFormData] = useState({
+        id: '',
         firstName: '',
         lastName: '',
         email: '',
@@ -26,6 +27,7 @@ const EditOwner = () => {
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
         setFormData({
+            id: searchParams.get('id'),
             firstName: searchParams.get('firstName'),
             lastName: searchParams.get('lastName'),
             email: searchParams.get('email'),
@@ -48,6 +50,7 @@ const EditOwner = () => {
         router.push('/owners')
 
         setFormData({
+            id: '',
             firstName: '',
             lastName: '',
             email: '',
@@ -57,10 +60,92 @@ const EditOwner = () => {
     };
 
 
+    const updateOwner = async () => {
+
+        toast.loading('Updating owner..');
+
+        const token = localStorage.getItem('token');
+
+        var myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Authorization', `Bearer ${token}`);
+
+        var raw = JSON.stringify({
+            "firstName": formData.firstName,
+            "lastName": formData.lastName,
+            "phone": formData.contact,
+            "address": formData.address,
+            "email": formData.email,
+        }); 
+        console.log(raw)
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        let response = await fetch(`https://vehicle-service-management.onrender.com/owner/add`, requestOptions);
 
 
+        console.log(response)
+
+        if (response.ok) {
+            let res = await response.json();
+            console.log(res);
+
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                contact: '',
+                address: '',
+            });
+
+            router.push('/owners')
+
+            toast.dismiss();
+            toast.success('Owner updated successfully!');
+        } else if (response.status === 403) {
+            toast.dismiss();
+            router.push('/authentication/sign-in');
+            toast.error('Please log in to continue');
+        } else {
+            toast.dismiss();
+            toast.error('Failed to update owner');
+        }
+    } 
 
 
+    const handleSaveChanges=(e)=>{
+        e.preventDefault();
+
+        if(formData.firstName===""){
+            toast.dismiss()
+            toast.error("Please enter firstname")
+        }
+        else if(formData.lastName===""){
+            toast.dismiss()
+            toast.error("Please enter lastname")
+        }
+        else if(formData.contact===""){
+            toast.dismiss()
+            toast.error("Please enter phone")
+        }
+        else if(formData.address===""){
+            toast.dismiss()
+            toast.error("Please enter address")
+        }
+        else if(formData.email===""){
+            toast.dismiss()
+            toast.error("Please enter email")
+        }
+        else{
+            updateOwner();
+        }
+        
+    }
 
 
     return (
@@ -109,7 +194,7 @@ const EditOwner = () => {
                                                     <Form.Control type="text" id="address" name="address" placeholder="Enter your address" value={formData.address} onChange={handleChange} />
                                                 </Col>
                                             </Row>
-                                            <Button variant="primary" type="submit">Save Changes</Button>
+                                            <Button variant="primary" type="submit" onClick={handleSaveChanges}>Save Changes</Button>
                                             <Button variant="secondary" className="ms-2" onClick={handleCancel}>Cancel</Button>
                                         </Form>
                                     </Card.Body>
