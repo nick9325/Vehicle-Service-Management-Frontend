@@ -55,7 +55,6 @@ const UnderService = () => {
       toast.dismiss();
       toast.error('Please log in to continue');
       router.push('/authentication/sign-in');
-      alert('token expired!');
     } else {
       toast.dismiss();
       toast.error('Failed to fetch vehicles');

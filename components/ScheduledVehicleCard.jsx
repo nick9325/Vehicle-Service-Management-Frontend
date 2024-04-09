@@ -31,10 +31,10 @@ const ScheduledVehicleCard = (props) => {
                     <strong>Description:</strong> {descriptionExpanded ? props.vehicleDescription : `${props.vehicleDescription?.slice(0, 30)}...`}
                     {!descriptionExpanded && props.vehicleDescription.length > 30 && <Button variant="link" size="sm" onClick={toggleDescription}>Read More</Button>}
                 </Card.Text>
-                <div className='border-top mb-3'></div>
-                <Card.Text className={` small d-flex justify-content-between`}>
-                    <span className='d-flex align-items-center justify-content-center gap-1'><i className='fe fe-user'></i> {props.ownerFirstname} {props.ownerLastname}</span>
-                    <span className='d-flex align-items-center justify-content-center gap-1'><i className='fe fe-map-pin mr-2'></i>{props.ownerAddress}</span>
+                {/* <div className='border-top mb-3'></div> */}
+                <Card.Text className={` small`}>
+                    <span className='d-flex align-items-center pb-2 gap-1 border-bottom'><i className='fe fe-user'></i> {props.ownerFirstname} {props.ownerLastname}</span>
+                    <span className='d-flex align-items-center pt-2 gap-1'><i className='fe fe-map-pin mr-2'></i>{props.ownerAddress}</span>
                 </Card.Text>
          
             </Card.Body>
