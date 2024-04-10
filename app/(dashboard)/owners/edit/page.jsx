@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import toast from 'react-hot-toast';
 
 
 
@@ -73,20 +74,20 @@ const EditOwner = () => {
         var raw = JSON.stringify({
             "firstName": formData.firstName,
             "lastName": formData.lastName,
-            "phone": formData.contact,
+            "phone": formData.phone,
             "address": formData.address,
             "email": formData.email,
-        }); 
+        });
         console.log(raw)
 
         var requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers: myHeaders,
             body: raw,
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.onrender.com/owner/add`, requestOptions);
+        let response = await fetch(`https://vehicle-service-management.onrender.com/owner/${formData.id}/update`, requestOptions);
 
 
         console.log(response)
@@ -115,49 +116,44 @@ const EditOwner = () => {
             toast.dismiss();
             toast.error('Failed to update owner');
         }
-    } 
+    }
 
 
-    const handleSaveChanges=(e)=>{
+    const handleSaveChanges = (e) => {
         e.preventDefault();
 
-        if(formData.firstName===""){
+        if (formData.firstName === "") {
             toast.dismiss()
             toast.error("Please enter firstname")
         }
-        else if(formData.lastName===""){
+        else if (formData.lastName === "") {
             toast.dismiss()
             toast.error("Please enter lastname")
         }
-        else if(formData.contact===""){
+        else if (formData.contact === "") {
             toast.dismiss()
             toast.error("Please enter phone")
         }
-        else if(formData.address===""){
+        else if (formData.address === "") {
             toast.dismiss()
             toast.error("Please enter address")
         }
-        else if(formData.email===""){
+        else if (formData.email === "") {
             toast.dismiss()
             toast.error("Please enter email")
         }
-        else{
+        else {
             updateOwner();
         }
-        
+
     }
 
 
     return (
         <Container fluid className="p-6">
-
-
-
             <div className="py-6">
                 <Row>
-
                     <div className='container'>
-
                         <Row className="justify-content-center">
                             <Col>
                                 <Card>
@@ -172,15 +168,15 @@ const EditOwner = () => {
                                                     <Form.Control type="text" id="firstName" name="firstName" placeholder="Enter your first name" value={formData.firstName} onChange={handleChange} />
                                                 </Col>
                                                 <Col md={6} className="mb-3">
-                                                    <Form.Label htmlFor="fullName">Last Name</Form.Label>
+                                                    <Form.Label htmlFor="lastName">Last Name</Form.Label>
                                                     <Form.Control type="text" id="lastName" name="lastName" placeholder="Enter your last name" value={formData.lastName} onChange={handleChange} />
                                                 </Col>
 
                                             </Row>
                                             <Row >
                                                 <Col md={6} className="mb-3">
-                                                    <Form.Label htmlFor="contact">Phone</Form.Label>
-                                                    <Form.Control type="text" id="contact" name="contact" placeholder="Enter your contact number" value={formData.phone} onChange={handleChange} />
+                                                    <Form.Label htmlFor="phone">Phone</Form.Label>
+                                                    <Form.Control type="text" id="phone" name="phone" placeholder="Enter your contact number" value={formData.phone} onChange={handleChange} />
                                                 </Col>
                                                 <Col md={6} className="mb-3">
                                                     <Form.Label htmlFor="email">Email</Form.Label>
@@ -201,8 +197,6 @@ const EditOwner = () => {
                                 </Card>
                             </Col>
                         </Row>
-
-
 
                     </div>
 
