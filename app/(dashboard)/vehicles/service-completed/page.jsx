@@ -79,7 +79,7 @@ const UnderService = () => {
           {vehicleData && vehicleData.map((vehicle) => (
             <div className="col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
 
-              <ServicedVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Complete'} buttonName={''} />
+              <ServicedVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Complete'} buttonName={'Generate Invoice'} />
 
             </div>
           ))}
