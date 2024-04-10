@@ -43,7 +43,7 @@ const AddVehicle = () => {
             setOwnersData(res);
             toast.dismiss();
             toast.success('Owners fetched successfully!');
-        } else if (response.status === 403) {
+        } else if (response.status === 401) {
             toast.dismiss();
             toast.error('Please log in to continue');
             router.push('/authentication/sign-in');
@@ -88,7 +88,7 @@ const AddVehicle = () => {
             setSelectedOwner(null);
             toast.dismiss();
             toast.success('Vehicle added successfully!');
-        } else if (response.status === 403) {
+        } else if (response.status === 401) {
             toast.dismiss();
             router.push('/authentication/sign-in');
             toast.error('Please log in to continue');

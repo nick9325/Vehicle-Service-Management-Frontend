@@ -44,7 +44,7 @@ const UnderService = () => {
       toast.dismiss();
       toast.success('Vehicles fetched successfully!');
 
-    } else if (response.status === 403) {
+    } else if (response.status === 401) {
       toast.dismiss();
       toast.error('Please log in to continue');
       router.push('/authentication/sign-in');

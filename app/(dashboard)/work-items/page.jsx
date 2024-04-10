@@ -2,9 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Col, Row, Container, Table, ButtonGroup, Button, Modal, Card, Form } from 'react-bootstrap';
-import { PageHeading, PageHeadingWithButton } from 'widgets';
-import { GetAllWorkItems } from '../../../constants/WorkItemEndpoints'
+import { Col, Row, Container, Table, Button, Modal, Form } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -68,7 +66,7 @@ const WorkItems = () => {
                 const workItems = await response.json();
                 setWorkItemsData(workItems);
                 setLoading(false);
-            } else if (response.status === 403) {
+            } else if (response.status === 401) {
                 toast.dismiss();
                 toast.error('Please log in to continue');
                 router.push('/authentication/sign-in');
