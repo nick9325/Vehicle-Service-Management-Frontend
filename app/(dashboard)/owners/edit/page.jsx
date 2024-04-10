@@ -108,7 +108,7 @@ const EditOwner = () => {
 
             toast.dismiss();
             toast.success('Owner updated successfully!');
-        } else if (response.status === 403) {
+        } else if (response.status === 401) {
             toast.dismiss();
             router.push('/authentication/sign-in');
             toast.error('Please log in to continue');

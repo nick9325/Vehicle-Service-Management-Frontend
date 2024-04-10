@@ -68,7 +68,7 @@ const Owners = () => {
                 const owners = await response.json();
                 setOwnersData(owners);
                 setLoading(false);
-            } else if (response.status === 403) {
+            } else if (response.status === 401) {
                 toast.dismiss();
                 toast.error('Please log in to continue');
                 router.push('/authentication/sign-in');
