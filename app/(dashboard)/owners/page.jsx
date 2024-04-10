@@ -3,9 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Col, Row, Container, Table, ButtonGroup, Button, Modal, Card, Form } from 'react-bootstrap';
-import { PageHeading, PageHeadingWithButton } from 'widgets';
 import { GetAllOwners } from '../../../constants/OwnerEndpoints';
 import toast from 'react-hot-toast';
+import Spinner from 'react-bootstrap/Spinner';
+
 
 const Owners = () => {
     const router = useRouter();
@@ -15,6 +16,7 @@ const Owners = () => {
     const [deletingOwner, setDeletingOwner] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     const handleClose = () => setShow(false);
     const handleShow = (owner) => {
@@ -38,6 +40,7 @@ const Owners = () => {
                 if (response.ok) {
                     toast.dismiss();
                     toast.success('Owner deleted successfully!');
+                    fetchOwners();
                 } else {
                     toast.dismiss();
                     toast.error('Failed to delete owner');
@@ -50,8 +53,6 @@ const Owners = () => {
     };
 
     const fetchOwners = async () => {
-        toast.dismiss();
-        toast.loading('Fetching owners..');
 
         const token = localStorage.getItem('token');
         const myHeaders = new Headers();
@@ -66,8 +67,7 @@ const Owners = () => {
             if (response.ok) {
                 const owners = await response.json();
                 setOwnersData(owners);
-                toast.dismiss();
-                toast.success('Owners fetched successfully!');
+                setLoading(false);
             } else if (response.status === 403) {
                 toast.dismiss();
                 toast.error('Please log in to continue');
@@ -136,81 +136,84 @@ const Owners = () => {
             </Row>
             <div className="py-6">
                 <Row>
-                    <div className="container overflow-x-auto">
-                        <Table className="text-nowrap">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentItems.map((owner, index) => (
-                                    <tr key={startIndex + index + 1}>
-                                        <Modal show={show && selectedOwner === owner} onHide={handleClose}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>Confirm Deletion</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                Are you sure you want to delete {owner.firstName} {owner.lastName}?
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="secondary" onClick={handleClose}>
-                                                    Cancel
-                                                </Button>
-                                                <Button variant="danger" onClick={handleDelete}>
-                                                    Delete
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
-                                        <th scope="row">{startIndex + index + 1}</th>
-                                        <td>
-                                            {owner.firstName} {owner.lastName}
-                                        </td>
-                                        <td>{owner.email}</td>
-                                        <td>
-                                            <Button
-                                                onClick={() =>
-                                                    router.push(
-                                                        `/owners/view?firstName=${owner.firstName}&lastName=${owner.lastName}&email=${owner.email}&phone=${owner.phone}&address=${owner.address}`
-                                                    )
-                                                }
-                                                variant="secondary"
-                                                size="sm"
-                                                className="me-2"
-                                            >
-                                                <i className="fe fe-eye"></i>
-                                            </Button>
-                                            <Button
-                                                onClick={() =>
-                                                    router.push(
-                                                        `/owners/edit?id=${owner.id}&firstName=${owner.firstName}&lastName=${owner.lastName}&email=${owner.email}&phone=${owner.phone}&address=${owner.address}`
-                                                    )
-                                                }
-                                                variant="success"
-                                                size="sm"
-                                                className="me-2"
-                                            >
-                                                <i className="fe fe-edit"></i>
-                                            </Button>
-                                            <Button
-                                                onClick={() => {
-                                                    handleShow(owner);
-                                                    setDeletingOwner(owner);
-                                                }}
-                                                variant="danger"
-                                                size="sm"
-                                                className=""
-                                            >
-                                                <i className="fe fe-trash-2"></i>
-                                            </Button>
-                                        </td>
+                    <div className={`container ${!loading ? 'overflow-x-auto' : ''} `}>
+
+                        {!loading ?
+                            <Table className="text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col"></th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                                </thead>
+                                <tbody>
+                                    {currentItems.map((owner, index) => (
+                                        <tr key={startIndex + index + 1}>
+                                            <Modal show={show && selectedOwner === owner} onHide={handleClose}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Confirm Deletion</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    Are you sure you want to delete {owner.firstName} {owner.lastName}?
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleClose}>
+                                                        Cancel
+                                                    </Button>
+                                                    <Button variant="danger" onClick={handleDelete}>
+                                                        Delete
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                            <th scope="row">{startIndex + index + 1}</th>
+                                            <td>
+                                                {owner.firstName} {owner.lastName}
+                                            </td>
+                                            <td>{owner.email}</td>
+                                            <td>
+                                                <Button
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `/owners/view?firstName=${owner.firstName}&lastName=${owner.lastName}&email=${owner.email}&phone=${owner.phone}&address=${owner.address}`
+                                                        )
+                                                    }
+                                                    variant="secondary"
+                                                    size="sm"
+                                                    className="me-2"
+                                                >
+                                                    <i className="fe fe-eye"></i>
+                                                </Button>
+                                                <Button
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `/owners/edit?id=${owner.id}&firstName=${owner.firstName}&lastName=${owner.lastName}&email=${owner.email}&phone=${owner.phone}&address=${owner.address}`
+                                                        )
+                                                    }
+                                                    variant="success"
+                                                    size="sm"
+                                                    className="me-2"
+                                                >
+                                                    <i className="fe fe-edit"></i>
+                                                </Button>
+                                                <Button
+                                                    onClick={() => {
+                                                        handleShow(owner);
+                                                        setDeletingOwner(owner);
+                                                    }}
+                                                    variant="danger"
+                                                    size="sm"
+                                                    className=""
+                                                >
+                                                    <i className="fe fe-trash-2"></i>
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table> : <div className='text-center'><Spinner animation="border" />
+                            </div>}
                     </div>
                 </Row>
                 {totalPages > 1 && (

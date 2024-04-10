@@ -6,6 +6,7 @@ import { Col, Row, Container, Table, ButtonGroup, Button, Modal, Card, Form } fr
 import { PageHeading, PageHeadingWithButton } from 'widgets';
 import { GetAllWorkItems } from '../../../constants/WorkItemEndpoints'
 import toast from 'react-hot-toast';
+import Spinner from 'react-bootstrap/Spinner';
 
 const WorkItems = () => {
     const router = useRouter();
@@ -15,6 +16,7 @@ const WorkItems = () => {
     const [deletingworkItem, setDeletingworkItem] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     const handleClose = () => setShow(false);
     const handleShow = (workItem) => {
@@ -38,6 +40,7 @@ const WorkItems = () => {
                 if (response.ok) {
                     toast.dismiss();
                     toast.success('Work item deleted successfully!');
+                    fetchItems();
                 } else {
                     toast.dismiss();
                     toast.error('Failed to delete work item');
@@ -50,8 +53,6 @@ const WorkItems = () => {
     };
 
     const fetchItems = async () => {
-        toast.dismiss();
-        toast.loading('Fetching work items..');
 
         const token = localStorage.getItem('token');
         const myHeaders = new Headers();
@@ -66,8 +67,7 @@ const WorkItems = () => {
             if (response.ok) {
                 const workItems = await response.json();
                 setWorkItemsData(workItems);
-                toast.dismiss();
-                toast.success('Work items fetched successfully!');
+                setLoading(false);
             } else if (response.status === 403) {
                 toast.dismiss();
                 toast.error('Please log in to continue');
@@ -134,69 +134,72 @@ const WorkItems = () => {
             </Row>
             <div className="py-6">
                 <Row>
-                    <div className="container overflow-x-auto">
-                        <Table className="text-nowrap">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Cost(₹)</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentItems.map((workItem, index) => (
-                                    <tr key={startIndex + index + 1}>
-                                        <Modal show={show && selectedworkItem === workItem} onHide={handleClose}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>Confirm Deletion</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                Are you sure you want to delete {workItem.name}?
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="secondary" onClick={handleClose}>
-                                                    Cancel
-                                                </Button>
-                                                <Button variant="danger" onClick={handleDelete}>
-                                                    Delete
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
-                                        <th scope="row">{startIndex + index + 1}</th>
-                                        <td>
-                                            {workItem.name}
-                                        </td>
-                                        <td>{workItem.price}</td>
-                                        <td>
-                                            <Button
-                                                onClick={() =>
-                                                    router.push(
-                                                        `/work-items/edit?id=${workItem.id}&name=${workItem.name}&price=${workItem.price}`
-                                                    )
-                                                }
-                                                variant="success"
-                                                size="sm"
-                                                className="me-2"
-                                            >
-                                                <i className="fe fe-edit"></i>
-                                            </Button>
-                                            <Button
-                                                onClick={() => {
-                                                    handleShow(workItem);
-                                                    setDeletingworkItem(workItem);
-                                                }}
-                                                variant="danger"
-                                                size="sm"
-                                                className=""
-                                            >
-                                                <i className="fe fe-trash-2"></i>
-                                            </Button>
-                                        </td>
+                    <div className={`container ${!loading ? 'overflow-x-auto' : ''} `}>
+
+                        {!loading ?
+                            <Table className="text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Cost(₹)</th>
+                                        <th scope="col"></th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                                </thead>
+                                <tbody>
+                                    {currentItems.map((workItem, index) => (
+                                        <tr key={startIndex + index + 1}>
+                                            <Modal show={show && selectedworkItem === workItem} onHide={handleClose}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Confirm Deletion</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    Are you sure you want to delete {workItem.name}?
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleClose}>
+                                                        Cancel
+                                                    </Button>
+                                                    <Button variant="danger" onClick={handleDelete}>
+                                                        Delete
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                            <th scope="row">{startIndex + index + 1}</th>
+                                            <td>
+                                                {workItem.name}
+                                            </td>
+                                            <td>{workItem.price}</td>
+                                            <td>
+                                                <Button
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `/work-items/edit?id=${workItem.id}&name=${workItem.name}&price=${workItem.price}`
+                                                        )
+                                                    }
+                                                    variant="success"
+                                                    size="sm"
+                                                    className="me-2"
+                                                >
+                                                    <i className="fe fe-edit"></i>
+                                                </Button>
+                                                <Button
+                                                    onClick={() => {
+                                                        handleShow(workItem);
+                                                        setDeletingworkItem(workItem);
+                                                    }}
+                                                    variant="danger"
+                                                    size="sm"
+                                                    className=""
+                                                >
+                                                    <i className="fe fe-trash-2"></i>
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>:<div className='text-center'><Spinner animation="border" />
+                            </div>}
                     </div>
                 </Row>
                 {totalPages > 1 && (
