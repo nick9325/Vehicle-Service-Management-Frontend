@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from 'react';
 import { Card, Button, Badge } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
@@ -8,6 +10,9 @@ const ScheduledVehicleCard = (props) => {
     const toggleDescription = () => {
         setDescriptionExpanded(!descriptionExpanded);
     };
+
+
+
 
 
     return (

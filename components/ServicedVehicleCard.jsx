@@ -5,6 +5,7 @@ import { Card, Button, Badge } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation';
+import { GetInvoice } from '../constants/ServiceEndpoints';
 
 const ServicedVehicleCard = (props) => {
     const [descriptionExpanded, setDescriptionExpanded] = useState(false);
@@ -30,7 +31,7 @@ const ServicedVehicleCard = (props) => {
         };
     
         try {
-            let response = await fetch(`https://vehicle-service-management.onrender.com/invoice/generate?vehicleId=${props.vehicleId}`, requestOptions);
+            let response = await fetch(`${GetInvoice}${props.vehicleId}`, requestOptions);
     
             if (response.ok) {
                 let blob = await response.blob();
