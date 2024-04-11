@@ -71,7 +71,7 @@ const Vehicles = () => {
       <div className="py-3">
         {!loading ?
           <div className="row">
-            {vehicleData.length >= 1 ? vehicleData.map((vehicle) => (
+            {vehicleData?.length >= 1 ? vehicleData.map((vehicle) => (
               <div className="col-xxl-3 col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
 
                 <DueVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'DUE'} buttonName={'Schedule'} />
