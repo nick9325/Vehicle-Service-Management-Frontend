@@ -7,18 +7,17 @@ import { useEffect, useState } from 'react';
 import { GetDueVehicles } from '../../../constants/VehicleEndpoints';
 import toast from 'react-hot-toast';
 import DueVehicleCard from '../../../components/DueVehicleCard';
-
+import Spinner from 'react-bootstrap/Spinner';
+import { Link } from 'react-bootstrap-icons';
 
 
 const Vehicles = () => {
 
   const router = useRouter();
   const [vehicleData, setVehicleData] = useState();
+  const [loading, setLoading] = useState(true);
 
   const fetchDueVehicles = async () => {
-
-    toast.dismiss();
-    toast.loading("Fetching vehicles..");
 
     const token = localStorage.getItem('token');
     console.log(token)
@@ -38,16 +37,15 @@ const Vehicles = () => {
       let res = await response.json();
       setVehicleData(res);
       console.log(vehicleData);
-
-
-      toast.dismiss();
-      toast.success('Vehicles fetched successfully!');
+      setLoading(false);
 
     } else if (response.status === 401) {
+      setLoading(false);
       toast.dismiss();
       toast.error('Please log in to continue');
       router.push('/authentication/sign-in');
     } else {
+      setLoading(false);
       toast.dismiss();
       toast.error('Failed to fetch vehicles');
     }
@@ -66,17 +64,29 @@ const Vehicles = () => {
 
       <VehiclesNav />
 
+
+
+
+
       <div className="py-3">
-        <div className="row">
-          {vehicleData && vehicleData.map((vehicle) => (
-            <div className="col-xxl-3 col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
+        {!loading ?
+          <div className="row">
+            {vehicleData.length >= 1 ? vehicleData.map((vehicle) => (
+              <div className="col-xxl-3 col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
 
-              <DueVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'DUE'} buttonName={'Schedule'} />
+                <DueVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'DUE'} buttonName={'Schedule'} />
 
-            </div>
-          ))}
-        </div>
+              </div>
+            )) : <div className='text-center'>
+              <h3>No Vehicles Found ! </h3>
+
+            </div>}
+          </div> :
+          <div className='text-center'>
+            <Spinner animation="border" />
+          </div>}
       </div>
+
 
 
     </Container>

@@ -7,19 +7,17 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { GetScheduleVehicles } from '../../../../constants/VehicleEndpoints';
-
+import Spinner from 'react-bootstrap/Spinner';
 
 
 const UnderService = () => {
 
   const router = useRouter();
   const [vehicleData, setVehicleData] = useState();
+  const [loading, setLoading] = useState(true);
 
 
   const fetchVehicles = async () => {
-
-    toast.dismiss();
-    toast.loading("Fetching vehicles..");
 
     const token = localStorage.getItem('token');
     console.log(token)
@@ -39,16 +37,15 @@ const UnderService = () => {
       let res = await response.json();
       setVehicleData(res);
       console.log(vehicleData);
-  
-   
-      toast.dismiss();
-      toast.success('Vehicles fetched successfully!');
+      setLoading(false);
 
     } else if (response.status === 401) {
+      setLoading(false);
       toast.dismiss();
       toast.error('Please log in to continue');
       router.push('/authentication/sign-in');
     } else {
+      setLoading(false);
       toast.dismiss();
       toast.error('Failed to fetch vehicles');
     }
@@ -68,15 +65,25 @@ const UnderService = () => {
       <VehiclesNav />
 
       <div className="py-3">
-        <div className="row">
-          {vehicleData && vehicleData.map((vehicle) => (
-            <div className="col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
-            
-            <ScheduledVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Scheduled'} />
 
-          </div>
-        ))}
-      </div>
+        {!loading?
+        <div className="row">
+          {vehicleData.length>=1 ? vehicleData.map((vehicle) => (
+            <div className="col-xl-4 col-md-6 col-sm-8 pb-3" key={vehicle.id}>
+
+              <ScheduledVehicleCard ownerFirstname={vehicle.owner.firstName} ownerLastname={vehicle.owner.lastName} ownerAddress={vehicle.owner.address} vehicleModel={vehicle.vehicleModel} vehicleNumber={vehicle.vehicleNumber} vehicleDescription={vehicle.vehicleDescription} serviceStatus={'Scheduled'} />
+
+            </div>
+          )):<div className='text-center'>
+            <h3>No Vehicles Found ! </h3>
+          </div>}
+
+        </div>:
+        <div className='text-center'>
+          <Spinner animation="border" />
+        </div>}
+
+
       </div>
 
 

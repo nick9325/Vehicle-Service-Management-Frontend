@@ -2,11 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Select from 'react-select'; // Import react-select
-
+import Select from 'react-select'; 
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import VehiclesNav from '../../../../components/VehiclesNav';
-
 import toast from 'react-hot-toast';
 import { RegisterVehicle } from '../../../../constants/VehicleEndpoints';
 import { GetAllOwners } from '../../../../constants/OwnerEndpoints';
@@ -23,8 +21,7 @@ const AddVehicle = () => {
     const [ownersData, setOwnersData] = useState([]);
 
     const getAllOwners = async () => {
-        toast.dismiss();
-        toast.loading('Fetching owners..');
+       
 
         const token = localStorage.getItem('token');
 
@@ -41,8 +38,6 @@ const AddVehicle = () => {
         if (response.ok) {
             let res = await response.json();
             setOwnersData(res);
-            toast.dismiss();
-            toast.success('Owners fetched successfully!');
         } else if (response.status === 401) {
             toast.dismiss();
             toast.error('Please log in to continue');
@@ -135,9 +130,10 @@ const AddVehicle = () => {
     return (
         <Container fluid className="p-6">
             <VehiclesNav />
-            <div className="py-3">
 
-           
+
+            <div className="py-3">
+                
                 <Row>
                     <div className="container">
                         <Row className="justify-content-center">
@@ -209,6 +205,8 @@ const AddVehicle = () => {
                         </Row>
                     </div>
                 </Row>
+
+
             </div>
         </Container>
     );
