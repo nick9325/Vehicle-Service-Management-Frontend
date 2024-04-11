@@ -83,6 +83,7 @@ const AddVehicle = () => {
             setSelectedOwner(null);
             toast.dismiss();
             toast.success('Vehicle added successfully!');
+            router.push('/vehicles')
         } else if (response.status === 401) {
             toast.dismiss();
             router.push('/authentication/sign-in');

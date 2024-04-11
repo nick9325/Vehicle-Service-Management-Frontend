@@ -67,14 +67,17 @@ const WorkItems = () => {
                 setWorkItemsData(workItems);
                 setLoading(false);
             } else if (response.status === 401) {
+                setLoading(false);
                 toast.dismiss();
                 toast.error('Please log in to continue');
                 router.push('/authentication/sign-in');
             } else {
+                setLoading(false);
                 toast.dismiss();
                 toast.error('Failed to fetch work items');
             }
         } catch (error) {
+            setLoading(false);
             console.error('Error occurred while fetching work items:', error);
             toast.dismiss();
             toast.error('An error occurred while fetching work items');
@@ -111,9 +114,9 @@ const WorkItems = () => {
             <Row>
                 <Col lg={12} md={12} xs={12}>
                     <div className="border-bottom pb-4 mb-4 d-flex justify-content-between">
-                        <h3 className="mb-0 fw-bold">workItems</h3>
+                        <h3 className="mb-0 fw-bold">Work Items</h3>
                         <Button onClick={() => router.push('/work-items/add')} variant="primary" className="">
-                            Add New workItem
+                            Add New Work Item
                         </Button>
                     </div>
                 </Col>

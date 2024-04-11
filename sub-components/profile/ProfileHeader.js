@@ -32,30 +32,6 @@ const ProfileHeader = () => {
               <Link href="#" className="btn btn-outline-primary d-none d-md-block">Edit Profile</Link>
             </div>
           </div>
-          {/* nav */}
-          
-          <ul className="nav nav-lt-tab px-4" id="pills-tab" role="tablist">
-            <li className="nav-item">
-              <Link className="nav-link active" href="#">Overview</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="#">Project</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="#">Files</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="#">Teams</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="#">
-                Followers
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" href="#">Activity</Link>
-            </li>
-          </ul>
 
         </div>
       </Col>

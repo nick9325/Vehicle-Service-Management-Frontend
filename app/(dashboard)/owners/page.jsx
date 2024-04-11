@@ -69,6 +69,7 @@ const Owners = () => {
                 setOwnersData(owners);
                 setLoading(false);
             } else if (response.status === 401) {
+                setLoading(false);
                 toast.dismiss();
                 toast.error('Please log in to continue');
                 router.push('/authentication/sign-in');
@@ -77,6 +78,7 @@ const Owners = () => {
                 toast.error('Failed to fetch owners');
             }
         } catch (error) {
+            setLoading(false);
             console.error('Error occurred while fetching owners:', error);
             toast.dismiss();
             toast.error('An error occurred while fetching owners');

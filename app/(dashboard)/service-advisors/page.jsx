@@ -81,12 +81,15 @@ const ServiceAdvisors = () => {
             } else if (response.status === 401) {
                 toast.dismiss();
                 toast.error('Please log in to continue');
+                setLoading(false);
                 router.push('/authentication/sign-in');
             } else {
+                setLoading(false);
                 toast.dismiss();
                 toast.error('Failed to fetch service advisors');
             }
         } catch (error) {
+            setLoading(false);
             console.error('Error occurred while fetching service advisors:', error);
             toast.dismiss();
             toast.error('An error occurred while fetching service advisors');
