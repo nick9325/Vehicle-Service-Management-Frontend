@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Card, Button, Badge } from 'react-bootstrap';
 import { FaCar } from 'react-icons/fa';
+import SelectModal from './SelectModal';
 
 const DueVehicleCard = (props) => {
     const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
+    const [modalShow, setModalShow] = useState(false);
+
     const toggleDescription = () => {
         setDescriptionExpanded(!descriptionExpanded);
     };
+
 
 
     return (
@@ -35,7 +39,11 @@ const DueVehicleCard = (props) => {
                     <span className='d-flex align-items-center pb-2 gap-1 border-bottom'><i className='fe fe-user'></i> {props.ownerFirstname} {props.ownerLastname}</span>
                     <span className='d-flex align-items-center pt-2 gap-1'><i className='fe fe-map-pin mr-2'></i>{props.ownerAddress}</span>
                 </Card.Text>
-               <Button className='' variant="primary" size='sm'>{props.buttonName}</Button>
+                {/* <Button onClick={handleScheduleClick} className='' variant="primary" size='sm'>{props.buttonName}</Button> */}
+                <Button variant="primary" size='sm' onClick={() => setModalShow(true)}>
+                    {props.buttonName}
+                </Button>
+                <SelectModal vehicleNumber={props.vehicleNumber} show={modalShow} onHide={() => setModalShow(false)} />
             </Card.Body>
         </Card>
 
