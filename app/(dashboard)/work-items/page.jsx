@@ -24,6 +24,7 @@ const WorkItems = () => {
 
     const handleDelete = async () => {
         setShow(false);
+        toast.loading('Deleting work item..')
         if (deletingworkItem) {
             const token = localStorage.getItem('token');
             const myHeaders = new Headers();

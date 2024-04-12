@@ -3,9 +3,9 @@ import { BaseUrl } from "./BaseUrl";
 
 //Get
 
-export const GetDueVehicles = `${BaseUrl}/vehicle/get/all/due`;
-export const GetScheduleVehicles = `${BaseUrl}/vehicle/get/all/scheduled`;
-export const GetCompletedVehicles = `${BaseUrl}/vehicle/get/all/serviced`;
+export const GetDueVehicles = `${BaseUrl}/vehicle/all/due`;
+export const GetScheduleVehicles = `${BaseUrl}/vehicle/all/scheduled`;
+export const GetCompletedVehicles = `${BaseUrl}/vehicle/all/serviced`;
 
 //Post
 
