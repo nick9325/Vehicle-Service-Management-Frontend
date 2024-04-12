@@ -117,7 +117,7 @@ const AddWorkItem = () => {
                                             </Row>
                                             <Row>
                                                 <Col className="mb-3">
-                                                    <Form.Label htmlFor="price">Last Name</Form.Label>
+                                                    <Form.Label htmlFor="price">Item Price</Form.Label>
                                                     <Form.Control type="number" id="price" name="price" placeholder="Enter item price" value={itemPrice} onChange={(e) => setItemPrice(e.target.valueAsNumber)} />
                                                 </Col>
                                             </Row>
