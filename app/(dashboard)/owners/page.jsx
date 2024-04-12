@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Col, Row, Container, Table, ButtonGroup, Button, Modal, Card, Form } from 'react-bootstrap';
-import { GetAllOwners } from '../../../constants/OwnerEndpoints';
+import { DeleteOwnerById, GetAllOwners } from '../../../constants/OwnerEndpoints';
 import toast from 'react-hot-toast';
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -36,7 +36,7 @@ const Owners = () => {
             };
 
             try {
-                const response = await fetch(`DELETE_ENDPOINT/${deletingOwner.id}`, requestOptions);
+                const response = await fetch(`${DeleteOwnerById}${deletingOwner.id}`, requestOptions);
                 if (response.ok) {
                     toast.dismiss();
                     toast.success('Owner deleted successfully!');
