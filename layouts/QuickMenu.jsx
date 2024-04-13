@@ -31,7 +31,7 @@ const QuickMenu = () => {
     const handleSignOut=(e)=>{
         e.preventDefault();
         router.push('/authentication/sign-in')
-        localStorage.removeItem('token_sa');
+        localStorage.removeItem('token');
 
     }
 
