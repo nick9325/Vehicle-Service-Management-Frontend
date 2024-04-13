@@ -6,6 +6,7 @@ import { Col, Row, Container, Table, Button, Modal, Form } from 'react-bootstrap
 import toast from 'react-hot-toast';
 import Spinner from 'react-bootstrap/Spinner';
 
+
 const WorkItems = () => {
     const router = useRouter();
     const [show, setShow] = useState(false);
@@ -15,6 +16,7 @@ const WorkItems = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true);
+
 
     const handleClose = () => setShow(false);
     const handleShow = (workItem) => {
@@ -35,7 +37,7 @@ const WorkItems = () => {
             };
 
             try {
-                const response = await fetch(`https://vehicle-service-management.onrender.com/item/delete/id?id=${deletingworkItem.id}`, requestOptions);
+                const response = await fetch(`https://vehicle-service-management.azurewebsites.net/item/delete/id?id=${deletingworkItem.id}`, requestOptions);
                 if (response.ok) {
                     toast.dismiss();
                     toast.success('Work item deleted successfully!');
@@ -45,6 +47,7 @@ const WorkItems = () => {
                     toast.error('Failed to delete work item');
                 }
             } catch (error) {
+                toast.dismiss();
                 console.error('Error occurred while deleting work item:', error);
                 toast.error('An error occurred while deleting work item');
             }
@@ -62,7 +65,7 @@ const WorkItems = () => {
         };
 
         try {
-            const response = await fetch(`https://vehicle-service-management.onrender.com/item/get/all`, requestOptions);
+            const response = await fetch(`https://vehicle-service-management.azurewebsites.net/item/get/all`, requestOptions);
             if (response.ok) {
                 const workItems = await response.json();
                 setWorkItemsData(workItems);
@@ -200,7 +203,7 @@ const WorkItems = () => {
                                         </tr>
                                     ))}
                                 </tbody>
-                            </Table>:<div className='text-center'><Spinner animation="border" />
+                            </Table> : <div className='text-center'><Spinner animation="border" />
                             </div>}
                     </div>
                 </Row>

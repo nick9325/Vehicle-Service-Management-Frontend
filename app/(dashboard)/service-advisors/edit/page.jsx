@@ -87,7 +87,7 @@ const EditServiceAdvisor = () => {
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.onrender.com/user/update?id=${formData.id}`, requestOptions);
+        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/user/update?id=${formData.id}`, requestOptions);
 
 
         console.log(response)

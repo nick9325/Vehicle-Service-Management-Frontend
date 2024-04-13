@@ -8,7 +8,6 @@ import { GetDueVehicles } from '../../../constants/VehicleEndpoints';
 import toast from 'react-hot-toast';
 import DueVehicleCard from '../../../components/DueVehicleCard';
 import Spinner from 'react-bootstrap/Spinner';
-import { Link } from 'react-bootstrap-icons';
 
 
 const Vehicles = () => {

@@ -38,7 +38,7 @@ const ServiceAdvisors = () => {
             };
 
             try {
-                const response = await fetch(`https://vehicle-service-management.onrender.com/user/delete?id=${deletingserviceAdvisor.id}`, requestOptions);
+                const response = await fetch(`https://vehicle-service-management.azurewebsites.net/user/delete?id=${deletingserviceAdvisor.id}`, requestOptions);
                 if (response.ok) {
                     toast.dismiss();
                     toast.success('Service advisor deleted successfully!');
@@ -73,7 +73,7 @@ const ServiceAdvisors = () => {
         };
 
         try {
-            const response = await fetch(`https://vehicle-service-management.onrender.com/user/get/all/serviceAdvisor`, requestOptions);
+            const response = await fetch(`https://vehicle-service-management.azurewebsites.net/user/get/all/serviceAdvisor`, requestOptions);
             if (response.ok) {
                 const serviceAdvisors = await response.json();
                 setServiceAdvisorsData(serviceAdvisors);

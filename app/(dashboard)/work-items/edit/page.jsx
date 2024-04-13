@@ -58,7 +58,7 @@ const EditWorkItem = () => {
             body: raw,
         };
 
-        let response = await fetch(`https://vehicle-service-management.onrender.com/item/update/id?id=${id}`, requestOptions);
+        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/item/update/id?id=${id}`, requestOptions);
 
 
         console.log(response)

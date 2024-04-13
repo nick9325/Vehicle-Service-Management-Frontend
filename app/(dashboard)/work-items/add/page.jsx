@@ -51,7 +51,7 @@ const AddWorkItem = () => {
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.onrender.com/item/add`, requestOptions);
+        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/item/add`, requestOptions);
 
 
         console.log(response)

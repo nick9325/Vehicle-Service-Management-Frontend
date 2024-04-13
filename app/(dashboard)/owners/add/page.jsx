@@ -69,7 +69,7 @@ const AddOwner = () => {
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.onrender.com/owner/add`, requestOptions);
+        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/owner/add`, requestOptions);
 
 
         console.log(response)
