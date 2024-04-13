@@ -17,12 +17,12 @@ const EditProfile = () => {
 
 
     const [formData, setFormData] = useState({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        address: user.address
+        id: user?.id,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+        phone: user?.phone,
+        address: user?.address
     });
 
     
@@ -69,7 +69,7 @@ const EditProfile = () => {
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/user/update?id=${user.id}`, requestOptions);
+        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/user/update?id=${formData.id}`, requestOptions);
 
 
         console.log(response)
