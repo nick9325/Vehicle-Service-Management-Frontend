@@ -5,6 +5,7 @@ import { BaseUrl } from "./BaseUrl";
 
 export const GetDueVehicles = `${BaseUrl}/vehicle/all/due`;
 export const GetScheduleVehicles = `${BaseUrl}/vehicle/all/scheduled`;
+export const GetUnderServicingVehicles = `${BaseUrl}/vehicle/all/underServicing`
 export const GetCompletedVehicles = `${BaseUrl}/vehicle/all/serviced`;
 
 //Post

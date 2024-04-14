@@ -10,7 +10,7 @@ import { GetScheduleVehicles } from '../../../../constants/VehicleEndpoints';
 import Spinner from 'react-bootstrap/Spinner';
 
 
-const UnderService = () => {
+const Scheduled = () => {
 
   const router = useRouter();
   const [vehicleData, setVehicleData] = useState();
@@ -92,4 +92,4 @@ const UnderService = () => {
   )
 }
 
-export default UnderService;
+export default Scheduled;

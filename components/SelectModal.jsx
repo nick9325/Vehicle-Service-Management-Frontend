@@ -70,7 +70,7 @@ const SelectModal = (props) => {
             let res = await response.json();
             console.log(res);
             setSelectedAdvisor(null);
-            router.push('/vehicles/under-service');
+            router.push('/vehicles/scheduled');
             toast.dismiss();
             toast.success('Vehicle scheduled successfully!');
         } else if (response.status === 401) {

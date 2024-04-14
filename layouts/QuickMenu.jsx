@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {
-    Row,
-    Col,
     Image,
     Dropdown,
     ListGroup,

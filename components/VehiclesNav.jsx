@@ -18,16 +18,25 @@ const VehiclesNav = () => {
                     <span className="text-nowrap">Due for Service</span>
                 </Link>
             </li>
+        
             <li className="nav-item">
-                <Link className={`nav-link ${pathname === '/vehicles/under-service' ? 'active' : ''}`} href="/vehicles/under-service">
-                    <span className="text-nowrap">Under Service</span>
+                <Link className={`nav-link ${pathname === '/vehicles/scheduled' ? 'active' : ''}`} href="/vehicles/scheduled">
+                    <span className="text-nowrap">Scheduled for Service</span>
                 </Link>
             </li>
+            
+            <li className="nav-item">
+                <Link className={`nav-link ${pathname === '/vehicles/under-servicing' ? 'active' : ''}`} href="/vehicles/under-servicing">
+                    <span className="text-nowrap">Under Servicing</span>
+                </Link>
+            </li>
+
             <li className="nav-item">
                 <Link className={`nav-link ${pathname === '/vehicles/service-completed' ? 'active' : ''}`} href="/vehicles/service-completed">
                     <span className="text-nowrap">Service Completed</span>
                 </Link>
             </li>
+
             <li className="nav-item">
                 <Link className={`nav-link ${pathname === '/vehicles/add-vehicle' ? 'active' : ''}`} href="/vehicles/add-vehicle">
                     <span className="text-nowrap">Add New Vehicle</span>

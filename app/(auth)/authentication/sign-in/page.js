@@ -127,13 +127,7 @@ const SignIn = () => {
                  Sign In
                </Button>
              </div>
-             <div className="d-md-flex justify-content-end mt-4">
-               <div className="mb-2 mb-md-0">
-                 <Link href="/authentication/sign-up" className="fs-5">
-                   Create An Account
-                 </Link>
-               </div>
-             </div>
+          
            </div>
          </Form>
          }
