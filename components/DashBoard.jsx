@@ -82,20 +82,20 @@ const DashBoard = () => {
                         </Col>
 
                         <Col xl={3} lg={6} md={12} xs={12} className="mt-6" >
-                            <StatRightTopIcon title={"Due"} value={vehiclesSummary.Due} />
+                            <StatRightTopIcon title={"Due"} value={vehiclesSummary?.Due} />
                         </Col>
                         <Col xl={3} lg={6} md={12} xs={12} className="mt-6" >
-                            <StatRightTopIcon title={"Scheduled"} value={vehiclesSummary.Scheduled} />
+                            <StatRightTopIcon title={"Scheduled"} value={vehiclesSummary?.Scheduled} />
                         </Col>
                         <Col xl={3} lg={6} md={12} xs={12} className="mt-6" >
-                            <StatRightTopIcon title={"Under Servicing"} value={vehiclesSummary["Under-servicing"]} />
+                            <StatRightTopIcon title={"Under Servicing"} value={vehiclesSummary?vehiclesSummary["Under-servicing"]:''} />
                         </Col>
                         <Col xl={3} lg={6} md={12} xs={12} className="mt-6" >
-                            <StatRightTopIcon title={"Serviced"} value={vehiclesSummary.Serviced} />
+                            <StatRightTopIcon title={"Serviced"} value={vehiclesSummary?.Serviced} />
                         </Col>
 
                         <Col xl={3} lg={6} md={12} xs={12} className="mt-6" >
-                            <StatRightTopIcon title={"Total"} value={vehiclesSummary.All} />
+                            <StatRightTopIcon title={"Total"} value={vehiclesSummary?.All} />
                         </Col>
 
                     </Row>
