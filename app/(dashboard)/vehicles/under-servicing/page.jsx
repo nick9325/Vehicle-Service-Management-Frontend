@@ -24,7 +24,7 @@ const UnderServicing = () => {
   const fetchVehicles = async () => {
 
 
-    const token = localStorage.getItem('token_sa');
+    const token = localStorage.getItem('token');
     console.log(token)
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -36,7 +36,7 @@ const UnderServicing = () => {
 
 
 
-    let response = await fetch(`https://vehicle-service-management.azurewebsites.net/vehicle/all/underServicing`, requestOptions);
+    let response = await fetch(`${GetUnderServicingVehicles}`, requestOptions);
 
     console.log(response);
 
