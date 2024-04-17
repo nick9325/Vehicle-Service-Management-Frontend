@@ -74,6 +74,8 @@ const AddVehicle = () => {
 
         let response = await fetch(`${RegisterVehicle}`, requestOptions);
 
+        
+
         if (response.ok) {
             let res = await response.json();
             console.log(res);

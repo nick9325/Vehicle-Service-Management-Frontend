@@ -36,7 +36,7 @@ const UnderServicing = () => {
 
 
 
-    let response = await fetch(`${GetUnderServicingVehicles}`, requestOptions);
+    let response = await fetch(`https://vehicle-service-management.azurewebsites.net/vehicle/all/underServicing`, requestOptions);
 
     console.log(response);
 
