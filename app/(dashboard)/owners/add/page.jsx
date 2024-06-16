@@ -69,7 +69,7 @@ const AddOwner = () => {
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/owner/add`, requestOptions);
+        let response = await fetch(`http://localhost:8082/owner/add`, requestOptions);
 
 
         console.log(response)

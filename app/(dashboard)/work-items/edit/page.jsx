@@ -58,7 +58,7 @@ const EditWorkItem = () => {
             body: raw,
         };
 
-        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/item/update/id?id=${id}`, requestOptions);
+        let response = await fetch(`http://localhost:8082/item/update/id?id=${id}`, requestOptions);
 
 
         console.log(response)

@@ -87,7 +87,7 @@ const EditOwner = () => {
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/owner/${formData.id}/update`, requestOptions);
+        let response = await fetch(`http://localhost:8082/owner/${formData.id}/update`, requestOptions);
 
 
         console.log(response)

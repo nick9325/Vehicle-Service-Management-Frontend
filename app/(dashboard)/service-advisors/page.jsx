@@ -73,7 +73,7 @@ const ServiceAdvisors = () => {
         };
 
         try {
-            const response = await fetch(`https://vehicle-service-management.azurewebsites.net/user/get/all/serviceAdvisor`, requestOptions);
+            const response = await fetch(`http://localhost:8082/user/get/all/serviceAdvisor`, requestOptions);
             if (response.ok) {
                 const serviceAdvisors = await response.json();
                 setServiceAdvisorsData(serviceAdvisors);

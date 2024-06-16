@@ -37,7 +37,7 @@ const WorkItems = () => {
             };
 
             try {
-                const response = await fetch(`https://vehicle-service-management.azurewebsites.net/item/delete/id?id=${deletingworkItem.id}`, requestOptions);
+                const response = await fetch(`http://localhost:8082/item/delete/id?id=${deletingworkItem.id}`, requestOptions);
                 if (response.ok) {
                     toast.dismiss();
                     toast.success('Work item deleted successfully!');
@@ -65,7 +65,7 @@ const WorkItems = () => {
         };
 
         try {
-            const response = await fetch(`https://vehicle-service-management.azurewebsites.net/item/get/all`, requestOptions);
+            const response = await fetch(`http://localhost:8082/item/get/all`, requestOptions);
             if (response.ok) {
                 const workItems = await response.json();
                 setWorkItemsData(workItems);

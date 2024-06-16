@@ -71,7 +71,7 @@ const AddServiceAdvisor = () => {
             redirect: "follow"
         };
 
-        let response = await fetch(`https://vehicle-service-management.azurewebsites.net/auth/signup`, requestOptions);
+        let response = await fetch(`http://localhost:8082/auth/signup`, requestOptions);
 
 
         console.log(response)
